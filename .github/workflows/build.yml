@@ -1,0 +1,44 @@
+name: Build Aegis APK
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Extract Project Files
+        run: |
+          unzip -q -o AegisAI_v1.0_Production_Master.zip
+          # सुनिश्चित करें कि gradle फ़ाइलें रूट में हों
+          if [ -d "aegis/AegisAI" ]; then
+            cp -r aegis/AegisAI/* .
+          fi
+          ls -la
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK Tools
+        uses: android-actions/setup-android@v4
+
+      - name: Build Debug APK
+        run: |
+          gradle wrapper
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon -x test
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AegisAI-Debug-APK
+          path: app/build/outputs/apk/debug/*.apk
+          
