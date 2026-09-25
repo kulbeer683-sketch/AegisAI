@@ -16,9 +16,7 @@ jobs:
         run: |
           mkdir -p workspace
           unzip -q -o AegisAI_v1.0_Production_Master.zip -d workspace
-          echo "=== Finding Project Root ==="
           PROJ_DIR=$(find workspace -name "settings.gradle*" -exec dirname {} \; | head -n 1)
-          echo "Found project at: $PROJ_DIR"
           echo "PROJECT_DIR=$PROJ_DIR" >> $GITHUB_ENV
 
       - name: Set up JDK 17
@@ -30,7 +28,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '8.7'
+          gradle-version: '8.10.2'
 
       - name: Build Debug APK
         run: |
@@ -42,3 +40,4 @@ jobs:
         with:
           name: AegisAI-Debug-APK
           path: "**/build/outputs/apk/debug/*.apk"
+          
