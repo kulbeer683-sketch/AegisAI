@@ -29,11 +29,11 @@ jobs:
           find workspace -name "DeviceVitalsMonitor.kt" -exec sed -i 's/BATTERY_PROPERTY_VOLTAGE/BATTERY_PROPERTY_CAPACITY/g' {} +
           MODEL_DIR=$(find workspace -path "*/com/aegis/ai/vitals" -type d | head -n 1)
           if [ -n "$MODEL_DIR" ]; then
-            echo "cGFja2FnZSBjb20uYWVnaXMuYWkudml0YWxzCgpzZWFsZWQgY2xhc3MgVml0YWxzUXVlcnkgewogICAgb2JqZWN0IEJhdHRlcnkgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgTWVtb3J5IDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IENwdSA6IFZpdGFsc1F1ZXJ5KCkKICAgIG9iamVjdCBTdG9yYWdlIDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IE5ldHdvcmsgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgQWxsIDogVml0YWxzUXVlcnkoKQp9Cg==" | base4 -d > "$MODEL_DIR/VitalsModelsPatch.kt" || echo "cGFja2FnZSBjb20uYWVnaXMuYWkudml0YWxzCgpzZWFsZWQgY2xhc3MgVml0YWxzUXVlcnkgewogICAgb2JqZWN0IEJhdHRlcnkgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgTWVtb3J5IDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IENwdSA6IFZpdGFsc1F1ZXJ5KCkKICAgIG9iamVjdCBTdG9yYWdlIDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IE5ldHdvcmsgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgQWxsIDogVml0YWxzUXVlcnkoKQp9Cg==" | base64 -d > "$MODEL_DIR/VitalsModelsPatch.kt"
+            echo "cGFja2FnZSBjb20uYWVnaXMuYWkudml0YWxzCgpzZWFsZWQgY2xhc3MgVml0YWxzUXVlcnkgewogICAgb2JqZWN0IEJhdHRlcnkgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgTWVtb3J5IDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IENwdSA6IFZpdGFsc1F1ZXJ5KCkKICAgIG9iamVjdCBTdG9yYWdlIDogVml0YWxzUXVlcnkoKQogICAgb2JqZWN0IE5ldHdvcmsgOiBWaXRhbHNRdWVyeSgpCiAgICBvYmplY3QgQWxsIDogVml0YWxzUXVlcnkoKQp9Cg==" | base64 -d > "$MODEL_DIR/VitalsModelsPatch.kt"
           fi
           STATE_DIR=$(find workspace -path "*/com/aegis/ai/state" -type d | head -n 1)
           if [ -n "$STATE_DIR" ]; then
-            echo "cGFja2FnZSBjb20uYWVnaXMuYWkuc3RhdGUKCmRhdGEgY2xhc3MgUGhhc2U0RGlhZ25vc3RpY3NQYXlsb2FkKAogICAgdmFsIHRpbWVzdGFtcDogTG9uZyA9IFN5c3RlbS5jdXJyZW50VGltZU1pbGxpcygpLAogICAgdmFsIHN0YXR1czogU3RyaW5nID0gIk9LIiwKICAgIHZhbCBtZXNzYWdlOiBTdHJpbmcgPSAiRGlhZ25vc3RpY3MgUGFzc2VkIgp5Cg==" | base64 -d > "$STATE_DIR/DiagnosticsPatch.kt"
+            echo "cGFja2FnZSBjb20uYWVnaXMuYWkuc3RhdGUKCmRhdGEgY2xhc3MgUGhhc2U0RGlhZ25vc3RpY3NQYXlsb2FkKAogICAgdmFsIHRpbWVzdGFtcDogTG9uZyA9IFN5c3RlbS5jdXJyZW50VGltZU1pbGxpcygpLAogICAgdmFsIHN0YXR1czogU3RyaW5nID0gIk9LIiwKICAgIHZhbCBtZXNzYWdlOiBTdHJpbmcgPSAiRGlhZ25vc3RpY3MgUGFzc2VkIikK" | base64 -d > "$STATE_DIR/DiagnosticsPatch.kt"
           fi
 
       - name: Set up JDK 17
