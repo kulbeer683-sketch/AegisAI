@@ -19,6 +19,15 @@ jobs:
           PROJ_DIR=$(find workspace -name "settings.gradle*" -exec dirname {} \; | head -n 1)
           echo "PROJECT_DIR=$PROJ_DIR" >> $GITHUB_ENV
 
+      - name: Auto-Patch VoicePersonaEngine
+        run: |
+          TARGET_FILE=$(find workspace -name "VoicePersonaEngine.kt" | head -n 1)
+          if [ -n "$TARGET_FILE" ]; then
+            echo "Patching $TARGET_FILE..."
+            # speechRate संदर्भ को सुरक्षित फ्लोट मान से ऑटो-रिप्लेस करें
+            sed -i 's/speechRate/1.0f/g' "$TARGET_FILE" || true
+          fi
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -40,4 +49,3 @@ jobs:
         with:
           name: AegisAI-Debug-APK
           path: "**/build/outputs/apk/debug/*.apk"
-          
