@@ -19,13 +19,12 @@ jobs:
           PROJ_DIR=$(find workspace -name "settings.gradle*" -exec dirname {} \; | head -n 1)
           echo "PROJECT_DIR=$PROJ_DIR" >> $GITHUB_ENV
 
-      - name: Auto-Patch VoicePersonaEngine
+      - name: Inspect VoicePersonaEngine Context
         run: |
           TARGET_FILE=$(find workspace -name "VoicePersonaEngine.kt" | head -n 1)
           if [ -n "$TARGET_FILE" ]; then
-            echo "Patching $TARGET_FILE..."
-            # speechRate संदर्भ को सुरक्षित फ्लोट मान से ऑटो-रिप्लेस करें
-            sed -i 's/speechRate/1.0f/g' "$TARGET_FILE" || true
+            echo "=== Exact Lines 35 to 55 of VoicePersonaEngine.kt ==="
+            sed -n '35,55p' "$TARGET_FILE"
           fi
 
       - name: Set up JDK 17
@@ -39,12 +38,14 @@ jobs:
         with:
           gradle-version: '8.10.2'
 
-      - name: Build Debug APK
+      - name: Scan All Project Errors
         run: |
           cd "$PROJECT_DIR"
-          gradle assembleDebug --no-daemon -x test
+          # --continue पूरे प्रोजेक्ट की सारी त्रुटियों को एक साथ चेक करेगा
+          gradle assembleDebug --continue --no-daemon -x test
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: AegisAI-Debug-APK
